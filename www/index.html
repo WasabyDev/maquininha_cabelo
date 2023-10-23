@@ -10,15 +10,41 @@
 
     <script>
         document.addEventListener("deviceready", onDeviceReady, false);
+
 function onDeviceReady() {
     console.log(navigator.vibrate);
 }
 
 function vibrar() {
+    navigator.vibrate(100000000000000000000000000000000000000000000000);
+    
 
-navigator.vibrate(100000000000000000000000000000000000000000000000);
+    const tempoDeEspera = 50000; // 5000 milissegundos = 5 segundos
 
+    setTimeout(function() {
+        mostrarNotificacao("O cabelo já está na régua");
+    }, tempoDeEspera);
 }
+
+function mostrarNotificacao(mensagem) {
+    
+    
+    
+    if (Notification.permission === "granted") {
+        var notification = new Notification("Notificação", {
+            body: mensagem
+        });
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(function(permission) {
+            if (permission === "granted") {
+                var notification = new Notification("Notificação", {
+                    body: mensagem
+                });
+            }
+        });
+    }
+}
+
     </script>
 </head>
 <body>
